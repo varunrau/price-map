@@ -78,7 +78,11 @@ func getRoute(c *maps.Client, latitude string, longitude string, lat2 string, lo
 	}
 	routes, _, err := c.Directions(context.Background(), r)
 	if err != nil {
-		log.Fatalf("fatal error: %s", err)
+		log.Printf("google maps error: %s", err)
+	}
+	if len(routes) == 0 {
+		fmt.Println("NO ROUTES FOUND")
+		return maps.Route{}
 	}
 	cheapestRoute := routes[0]
 	for i := range routes[1:] {
@@ -89,6 +93,10 @@ func getRoute(c *maps.Client, latitude string, longitude string, lat2 string, lo
 	}
 	if cheapestRoute.Fare == nil {
 		fmt.Println("no fare info")
+	}
+	if cheapestRoute.Fare == nil {
+		fmt.Println("NO FARE FOUND")
+		return cheapestRoute
 	}
 	fmt.Println("Cheapest Route:", cheapestRoute.Fare.Text)
 	return cheapestRoute
