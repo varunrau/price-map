@@ -63,41 +63,6 @@ func main() {
 		data := censusData.Data[i+1]
 		for j := range censusData.Data[2:] {
 			toData := censusData.Data[j+2]
-			getRoute(c, data.GetLatitude(), data.GetLongitude(), toData.GetLatitude(), toData.GetLongitude())
 		}
 	}
-}
-
-func getRoute(c *maps.Client, latitude string, longitude string, lat2 string, long2 string) maps.Route {
-	fmt.Println(fmt.Sprintf("%s,%s", latitude, longitude))
-	fmt.Println(fmt.Sprintf("%s,%s", lat2, long2))
-	r := &maps.DirectionsRequest{
-		Origin:      fmt.Sprintf("%s,%s", latitude[1:], longitude),
-		Destination: fmt.Sprintf("%s,%s", lat2[1:], long2),
-		Mode:        maps.TravelModeTransit,
-	}
-	routes, _, err := c.Directions(context.Background(), r)
-	if err != nil {
-		log.Printf("google maps error: %s", err)
-	}
-	if len(routes) == 0 {
-		fmt.Println("NO ROUTES FOUND")
-		return maps.Route{}
-	}
-	cheapestRoute := routes[0]
-	for i := range routes[1:] {
-		route := routes[i]
-		if cheapestRoute.Fare.Value > route.Fare.Value {
-			cheapestRoute = route
-		}
-	}
-	if cheapestRoute.Fare == nil {
-		fmt.Println("no fare info")
-	}
-	if cheapestRoute.Fare == nil {
-		fmt.Println("NO FARE FOUND")
-		return cheapestRoute
-	}
-	fmt.Println("Cheapest Route:", cheapestRoute.Fare.Text)
-	return cheapestRoute
 }
