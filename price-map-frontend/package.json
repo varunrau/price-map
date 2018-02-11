@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "d3-request": "^1.0.6",
     "deck.gl": "^5.0.4",
     "luma.gl": "^5.0.2",
     "react": "^16.2.0",

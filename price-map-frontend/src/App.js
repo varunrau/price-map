@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import DeckGL from 'deck.gl';
+import {ArcLayer} from 'deck.gl';
 import './App.css';
+import {json as reqeustJson} from 'd3-request';
+
+const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX;
 
 class App extends Component {
   render() {
@@ -8,7 +13,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Welcome to REACT</h1>
         </header>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload!!!!!
